@@ -1,4 +1,4 @@
-package main
+package neuralnet
 
 import (
 	"encoding/csv"
@@ -9,9 +9,9 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-func main() {
-	// open the training dataset file.
-	f, err := os.Open("data/train.csv")
+func MakeInputsAndLabels(fileName string) (*mat.Dense, *mat.Dense) {
+	// Open the dataset file.
+	f, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,22 +27,28 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// inputsData and labelsData will hold al the float values that will eventually be used to form our matrices.
+	// inputsData and labelsData will hold all the
+	// float values that will eventually be
+	// used to form matrices.
 	inputsData := make([]float64, 4*len(rawCSVData))
 	labelsData := make([]float64, 3*len(rawCSVData))
 
-	// inputsIndex will track the current index of inputs matrix values.
+	// Will track the current index of matrix values.
 	var inputsIndex int
 	var labelsIndex int
 
 	// Sequentially move the rows into a slice of floats.
 	for idx, record := range rawCSVData {
-		// Skip the header row
+
+		// Skip the header row.
 		if idx == 0 {
 			continue
 		}
+
 		// Loop over the float columns.
 		for i, val := range record {
+
+			// Convert the value to a float.
 			parsedVal, err := strconv.ParseFloat(val, 64)
 			if err != nil {
 				log.Fatal(err)
@@ -55,22 +61,12 @@ func main() {
 				continue
 			}
 
-			// Add the float value to  the slice of floats.
+			// Add the float value to the slice of floats.
 			inputsData[inputsIndex] = parsedVal
 			inputsIndex++
 		}
 	}
-
-	// Form the matrices.
 	inputs := mat.NewDense(len(rawCSVData), 4, inputsData)
 	labels := mat.NewDense(len(rawCSVData), 3, labelsData)
-
-	// Define our nerwork architecture and learning parameters
-	config := nn.neuralNetConfig{
-		inputNeurons:  4,
-		outputNeurons: 3,
-		hiddenNeurons: 3,
-		numEpochs:     5000,
-		learningRate:  0.3,
-	}
+	return inputs, labels
 }

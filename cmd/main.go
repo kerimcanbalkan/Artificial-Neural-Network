@@ -13,7 +13,7 @@ func main() {
 	// Form the training matrices.
 	inputs, labels := neuralnet.MakeInputsAndLabels("data/train.csv")
 
-	// Define our network architecture and learning parameters.
+	// Define the network architecture and learning parameters.
 	config := neuralnet.NeuralNetConfig{
 		InputNeurons:  4,
 		OutputNeurons: 3,

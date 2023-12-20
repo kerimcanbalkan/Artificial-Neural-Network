@@ -2,8 +2,7 @@ package neuralnet
 
 import "gonum.org/v1/gonum/mat"
 
-// neuralNet contains all of the information
-// that defines a trained neural network.
+// Defines a trained neural network.
 type NeuralNet struct {
 	Config  NeuralNetConfig
 	WHidden *mat.Dense
@@ -12,8 +11,7 @@ type NeuralNet struct {
 	BOut    *mat.Dense
 }
 
-// neuralNetConfig defines our neural network
-// architecture and learning parameters.
+// Defines the neural network architecture and learning parameters.
 type NeuralNetConfig struct {
 	InputNeurons  int
 	OutputNeurons int

@@ -8,21 +8,17 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-// sigmoid implements the sigmoid function
-// for use in activation functions.
+// sigmoid function for activation.
 func sigmoid(x float64) float64 {
 	return 1.0 / (1.0 + math.Exp(-x))
 }
 
-// sigmoidPrime implements the derivative
-// of the sigmoid function for backpropagation.
+// Derivative of sigmoid function for the backpropagation.
 func sigmoidPrime(x float64) float64 {
 	return sigmoid(x) * (1.0 - sigmoid(x))
 }
 
-// sumAlongAxis sums a matrix along a
-// particular dimension, preserving the
-// other dimension.
+// Sums a matrix along a particular dimension.
 func sumAlongAxis(axis int, m *mat.Dense) (*mat.Dense, error) {
 	numRows, numCols := m.Dims()
 

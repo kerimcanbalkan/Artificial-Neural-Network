@@ -17,7 +17,7 @@ func MakeInputsAndLabels(fileName string) (*mat.Dense, *mat.Dense) {
 	}
 	defer f.Close()
 
-	// Create a new CSV reader reading from the opened file.
+	// Create a new CSV reader.
 	reader := csv.NewReader(f)
 	reader.FieldsPerRecord = 7
 
@@ -27,9 +27,6 @@ func MakeInputsAndLabels(fileName string) (*mat.Dense, *mat.Dense) {
 		log.Fatal(err)
 	}
 
-	// inputsData and labelsData will hold all the
-	// float values that will eventually be
-	// used to form matrices.
 	inputsData := make([]float64, 4*len(rawCSVData))
 	labelsData := make([]float64, 3*len(rawCSVData))
 
@@ -48,7 +45,6 @@ func MakeInputsAndLabels(fileName string) (*mat.Dense, *mat.Dense) {
 		// Loop over the float columns.
 		for i, val := range record {
 
-			// Convert the value to a float.
 			parsedVal, err := strconv.ParseFloat(val, 64)
 			if err != nil {
 				log.Fatal(err)

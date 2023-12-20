@@ -6,11 +6,9 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-// predict makes a prediction based on a trained
-// neural network.
+// Makes a prediction based on a trained
 func (nn *NeuralNet) Predict(x *mat.Dense) (*mat.Dense, error) {
-	// Check to make sure that our neuralNet value
-	// represents a trained model.
+	// Check if the neural network has been trained.
 	if nn.WHidden == nil || nn.WOut == nil {
 		return nil, errors.New("the supplied weights are empty")
 	}
@@ -18,7 +16,6 @@ func (nn *NeuralNet) Predict(x *mat.Dense) (*mat.Dense, error) {
 		return nil, errors.New("the supplied biases are empty")
 	}
 
-	// Define the output of the neural network.
 	output := new(mat.Dense)
 
 	// Complete the feed forward process.

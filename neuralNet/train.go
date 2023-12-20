@@ -7,7 +7,7 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-// train trains a neural network using backpropagation.
+// Trains the neural network using backpropagation.
 func (nn *NeuralNet) Train(x, y *mat.Dense) error {
 	// Initialize biases/weights.
 	randSource := rand.NewSource(time.Now().UnixNano())
@@ -42,7 +42,7 @@ func (nn *NeuralNet) Train(x, y *mat.Dense) error {
 		return err
 	}
 
-	// Define our trained neural network.
+	// Define the trained neural network.
 	nn.WHidden = WHidden
 	nn.BHidden = bHidden
 	nn.WOut = wOut
@@ -51,10 +51,8 @@ func (nn *NeuralNet) Train(x, y *mat.Dense) error {
 	return nil
 }
 
-// backpropagate completes the backpropagation method.
 func (nn *NeuralNet) Backpropagate(x, y, WHidden, bHidden, wOut, bOut, output *mat.Dense) error {
-	// Loop over the number of epochs utilizing
-	// backpropagation to train our model.
+	// Loop over the number of epochs.
 	for i := 0; i < nn.Config.NumEpochs; i++ {
 
 		// Complete the feed forward process.
